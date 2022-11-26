@@ -1,4 +1,23 @@
 .workSpace {
     display: flex;
+    // margin-right: 400px;
     justify-content: center;
+    padding: 20px;
+
 }
+
+.wsInputName {
+    text-align: center;
+}
+
+.wsInputDescr{
+    text-align: center;
+    height: 100px;
+}
+
+.wsBtns {
+    display: flex;
+    justify-content: center;
+    margin-left: 5px;
+}
+

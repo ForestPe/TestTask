@@ -1,40 +1,35 @@
 import './tasksListItem.scss';
 
-
-
 const TasksListItem = (props) => {
 
-    const {name, descr, date, onDelete, onToggleProp, state, important, editItem} = props;
+    const {name, descr, date, onDelete, onToggleProp, check, star, editItem} = props;
 
-
-
-    let classNames = 'list-group-item d-flex justify-content-between';
-    if (state) {
-        classNames += ' increase';
+    let classNames = 'list-group-item';
+    if (check) {
+        classNames += ' check';
     }
 
-    if (important) {
-        classNames += ' like'
+    if (star) {
+        classNames += ' star'
     }
-
 
     return(
         <li className={classNames}>
-            <div className='main'>
-                <span className='list-group-item-label' onClick={onToggleProp} data-toggle="important">{name}</span>
-                <input type="text" className='description' defaultValue={descr}/>
+            <div className='main' onClick={onToggleProp} data-toggle="star">
+                <span className='listName'>{name.length > 30 ? name.slice(0, 30) + '...' : name.slice(0, 30)}</span>
+                <span className='listDescr'>{descr.length > 45 ? descr.slice(0, 45) + '...' : descr.slice(0, 45)}</span>
             </div>
             <div className='about'>
-            <input type="text" className='list-group-item-input' defaultValue={date}/>
-            <div className="d-flex justify-content-center align-item-center">
+            <span className='listDate'>{date}</span>
+            <div className="listBtns">
                 <button type="button"
-                        className='btn-cookie btn-sm' 
+                        className='btn-check btn-sm' 
                         onClick={onToggleProp}
-                        data-toggle="state">
+                        data-toggle="check">
                         <i className='fas fa-check'></i>
                 </button>
                 <button type="button"
-                        className='btn-cookie btn-sm' 
+                        className='btn-pen btn-sm' 
                         onClick={editItem}
                         data-toggle="done">
                         <i className='fas fa-pen'></i>

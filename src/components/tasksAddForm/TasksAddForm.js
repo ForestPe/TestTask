@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Input } from 'antd';
 
 import './tasksAddForm.scss';
 
@@ -7,7 +7,6 @@ const TasksAddForm = ({onAdd}) => {
 
     const [name, setName] = useState('');
     const [descr, setDescr] = useState('')
-    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
     const showModal = () => {
@@ -15,11 +14,7 @@ const TasksAddForm = ({onAdd}) => {
     };
 
     const handleOk = () => {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
         setOpen(false);
-      }, 3000);
     };
 
     const handleCancel = () => {
@@ -57,27 +52,18 @@ const TasksAddForm = ({onAdd}) => {
             footer={[]}>
             <div className="app-add-form">
                 <form 
-                    className="add-form d-flex"
-                    onSubmit={(e) => onSubmit(e)}>
-                    <input type="text"
-                        className='form-control new-post-label'
+                    className="add-form">
+                    <Input type="text"
                         placeholder='Название задачи' 
                         name='name'
                         value={name}
                         onChange={(e) => onNameChange(e.target.value)}/>
-                    <input type="text"
-                        className='form-control new-post-label'
+                    <Input type="text"
                         placeholder='Описание'
                         name='descr'
                         value={descr}
                         onChange={(e) => onDescrChange(e.target.value)}/>
-                    {/* <button onClick={handleCancel}>
-                        Закрыть
-                    </button> */}
-                    <button type='submit'
-                            className='btn btn-outline-light'
-                            >Добавить</button>
-
+                    <Button className='addFormBtn' onClick={(e) => onSubmit(e)}>Добавить</Button>
                 </form>
             </div>
         </Modal>

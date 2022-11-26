@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
+import { Input } from 'antd';
 import './searchPanel.scss';
 
 const SearchPanel = ({onUpdateSearchs}) => {
-
 
     const [term, setTerm] = useState('');
 
@@ -14,11 +14,10 @@ const SearchPanel = ({onUpdateSearchs}) => {
     }
 
     return(
-        <input 
-            type="text"
-            className="form-control search-input"
-            placeholder="Найти задачу"
-            value={term}
+        <Input 
+            type="text" 
+            placeholder="Найти задачу" 
+            value={term} 
             onChange={(e) => onUpdateSearch(e.target.value.toLowerCase())}/>
     )
 

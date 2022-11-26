@@ -15,8 +15,16 @@
         min-width: 450px;
     }
 
-    .description {
-        flex-direction: column;
+    .listName {
+        font-size: 20px;
+    }
+
+    .listDescr {
+        font-size: 17px;
+    }
+
+    .listDate {
+        font-size: 18px;
     }
 
     .editTask {
@@ -26,30 +34,30 @@
         background-color: #e09f3e;
     }
 
-    input {
-        line-height: 35px;
-        font-size: 18px;
-        text-align: center;
-        border: 0;
-        width: 110px;
-    }
-
     button {
         width: 30px;
         height: 30px;
         margin: 3px;
         font-size: 15px;
-        border: none;
+        border-radius: 20%;
         cursor: pointer;
     }
+}
+
+.list-group-item:hover {
+    background-color:#c6d2d5;
 }
 
 .list-group-item:last-child {
     border-bottom: none;
 }
 
-.list-group-item .btn-cookie {
-    color: #e09f3e;
+.list-group-item .btn-check {
+    color: #26bb21;
+}
+
+.list-group-item .btn-pen {
+    color: #e2bd27;
 }
 
 .list-group-item .btn-trash {
@@ -62,21 +70,21 @@
     text-align: center;
     line-height: 35px;
     font-size: 16px;
-    color: #FFD700;
+    color: #00cbf3;
     transition: 0.3s all;
     transform: translateX(30px);
     opacity: 0;
 }
 
-.list-group-item.like .fa-star {
+.list-group-item.star .fa-star {
     opacity: 1;
     transform: translateX(0px);
 }
 
-.list-group-item.increase .list-group-item-label, .list-group-item.increase .list-group-item-input {
-    color: #e09f3e;
+.list-group-item.check .listName {
+    color: #37b20a;
 }
   
-.list-group-item.increase .btn-star {
-    color: #aeaeae;
+.list-group-item.star {
+    background-color: #b1d6de;
 }

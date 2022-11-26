@@ -1,12 +1,8 @@
 import { useState } from 'react';
 
-import { Modal, Button } from 'antd';
-
 import AppInfo from '../appInfo/AppInfo';
 import TasksList from '../tasksList/TasksList';
 import WorkSpace from '../workSpace/WorkSpace';
-
-
 
 import 'antd/dist/reset.css';
 
@@ -15,15 +11,15 @@ import './app.scss';
 const App = (props) => {
 
     const [data, setData] = useState([
-        {name: "Подумать о важном", descr: 'bla bla bla', date: new Date(2022, 2, 16).toLocaleDateString(), state: true, important: false, id: 1},
-        {name: "Побывать в горах Индии", descr: 'bla bla bla', date: new Date(2021, 11, 16).toLocaleDateString(), state: false, important: false, id: 2},
-        {name: "Нанять Петю на работу", descr: 'bla bla bla', date: new Date(2022, 12, 20).toLocaleDateString(), state: false, important: true, id: 3}
+        {name: "Подумать о важном", descr: 'Кто я? а чего я хочу?', date: new Date(2022, 2, 16).toLocaleDateString(), check: true, star: false, id: 1},
+        {name: "Побывать в горах Индии", descr: 'Понять кто я и чего я хочу', date: new Date(2023, 11, 16).toLocaleDateString(), check: false, star: false, id: 2},
+        {name: "Нанять Петю на работу", descr: 'Ну точно нельзя проходить мимо этого парня!', date: new Date(2022, 11, 20).toLocaleDateString(), check: false, star: true, id: 3}
     ]);
 
     const [term, setTerm] = useState('');   
     const [filter, setFilter] = useState('all');
     const [maxId, setMaxId] = useState(4);
-
+    const [item, setItem] = useState('');
 
     function deleteItem(id) {
         setMaxId(maxId - 1);
@@ -31,29 +27,24 @@ const App = (props) => {
     }
 
     function editItem(id) {
-        // const itemId = id;
-        // console.log(id)
-        // data.map(item => {
-        //     if (item.id === id) {
-        //         return item;
-        //     }
-        // })
-        return id;
+        console.log(id)
+        data.map(item => {
+            if (item.id === id) {
+                setItem(item);
+            }    
+        })
     }
 
-    const newItem = editItem;
 
-    console.log(newItem);
-
-    function addItem(name, descr) {
+    function addItem(name, descr, id) {
         setMaxId(maxId + 1);
         const newItem = {
             name: name,
             descr: descr,
             date: new Date().toLocaleDateString(), 
-            state: false,
-            important: false,
-            id: maxId
+            check: false,
+            star: false,
+            id: id ? id : maxId
         }
 
         const newArr = [...data, newItem];
@@ -73,7 +64,7 @@ const App = (props) => {
         )
     }
 
-    function searchMus(items, term) {
+    function searchTask(items, term) {
         if (term.length === 0) {
             return items;
         }
@@ -89,10 +80,10 @@ const App = (props) => {
 
     function filterPost(items, filter) {
         switch (filter) {
-            case 'important':
-                return items.filter(item => item.important);
-            case 'state':
-                return items.filter(item => item.state);
+            case 'star':
+                return items.filter(item => item.star);
+            case 'check':
+                return items.filter(item => item.check);
             default:
                 return items
         }
@@ -102,62 +93,36 @@ const App = (props) => {
         setFilter(filter);    
     }
 
-    // function onToggleEdit(id) {
-    //         data.map(item => {
-    //             if (item.id === id) {
-    //                 return (
-    //                     <>
-    //                     <Button type="primary" onClick={() => setOpen(true)}>
-    //                       Open Modal of 1000px width
-    //                     </Button>
-    //                     <Modal
-    //                       title="Modal 1000px width"
-    //                       centered
-    //                       open={open}
-    //                       onOk={() => setOpen(false)}
-    //                       onCancel={() => setOpen(false)}
-    //                       width={1000}
-    //                     >
-    //                       <p>some contents...</p>
-    //                       <p>some contents...</p>
-    //                       <p>some contents...</p>
-    //                     </Modal>
-    //                   </>
-    //                 )
-    //             }
-    //         })
-
-
-    //     console.log(id)
-
-
-    
-    // }
-
-
     const tasks = data.length;
-    const state = data.filter(item => item.state).length;
-    const visibleData = filterPost(searchMus(data, term), filter);
+    const check = data.filter(item => item.check).length;
+    const visibleData = filterPost(searchTask(data, term), filter);
     
 
     return(
         <div className="app">
             <AppInfo
                 tasks={tasks}
-                state={state}
-                onAdd={addItem}
+                check={check}
             />
 
             <TasksList 
                 data={visibleData}
                 onDelete={deleteItem}
                 onToggleProp={onToggleProp}
-                // onToggleEdit={onToggleEdit}
                 onUpdateSearchs={onUpdateSearchs}
                 onFilterSelect={onFilterSelect}
                 filter={filter}
-                editItem={editItem}/>
-                <WorkSpace data={data} editItem={editItem} newItem={newItem}/>
+                editItem={editItem}
+                onAdd={addItem}
+            />
+
+            {item ? <WorkSpace
+                        data={data} 
+                        item={item}
+                        setItem={setItem} 
+                        onAdd={addItem} 
+                        deleteItem={deleteItem}/> : null}
+
         </div>
     );
 

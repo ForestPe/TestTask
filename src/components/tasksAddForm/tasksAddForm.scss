@@ -1,17 +1,13 @@
-.add-form {
-    // margin-top: 20px;
-    input {
-        width: 40%;
-        margin-right: 20px;
-    }
-}
-
 .app-add-form {
     text-align: center;
-    // margin-top: 30px;
     padding: 25px;
-    background-color: #82b4bd;
+    background-color: #9e3bb4;
     border-radius: 20px;
     box-shadow: 15px 15px 30px #D2E1DF; 
     color: black;
+}
+
+
+.addFormBtn {
+    margin-top: 20px;
 }

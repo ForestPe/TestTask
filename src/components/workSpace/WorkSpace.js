@@ -1,25 +1,65 @@
-import { useState } from 'react';
-import TasksListItem from '../tasksListItem/TasksListItem';
+import { useState, useEffect } from 'react';
 
+import { Input, Button } from 'antd';
 import './workSpace.scss';
 
-const WorkSpace = ({data, editItem, id, newItem}) => {
+const WorkSpace = ({item, setItem, onAdd, data, deleteItem}) => {
 
-    function getElement(id) {
-        data.map(item => {
-            if (item.id === id){
-                return item
-            }
-        })
+    const [name, setName] = useState('');
+    const [descr, setDescr] = useState('');
+
+
+
+    useEffect(() => {
+        setName(item.name ? item.name : '')
+        setDescr(item.descr ? item.descr : '')
+        
+    },[item])
+
+    function onEdit(e) {
+        e.preventDefault();
+        if (name && name.length > 3) {
+            onAdd(name, descr);
+            setName('');
+            setDescr('');
+            setItem('')
+            // deleteItem(item.id);
+        }
+
+        
     }
+
+    function onNameChange(value) {
+        console.log(value)
+        setName(value)
+    }
+
+    function onDescrChange(value) {
+        console.log(value)
+        setDescr(value)
+    }
+
+    function onClose(e) {
+        e.preventDefault();
+        setName('');
+        setDescr('')
+        setItem('')
+    }
+
     return (
         <div className='workSpace'>
-            {/* <h1>olla</h1>
-            <input onClick={(e) => editItem(e)} defaultValue={data[0].name}/>
-            <input onClick={(e) => editItem(e)} defaultValue={data[0].descr}/> */}
-            <TasksListItem name={data[0].name} descr={data[0].descr}/>
-            {newItem}
-        </div>
+            <form>
+                <div className='wsInputs'>
+                    <Input className='wsInput wsInputName' type='text' name='name' onChange={(e) => onNameChange(e.target.value)} value={name}/>
+                    <Input className='wsInput wsInputDescr' type='text' name='descr' onChange={(e) => onDescrChange(e.target.value)}  value={descr}/>
+                </div>
+                <div className='wsBtns'>
+                    <Button className='wsBtn' onClick={(e) => onClose(e)}>Закрыть</Button>
+                    <Button className='wsBtn' onClick={(e) => onEdit(e)}>Сохранить</Button>
+                </div>
+            </form>
+        </div> 
+        
     )
 }
 

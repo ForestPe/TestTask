@@ -1,12 +1,17 @@
 .app-list {
     display: block;
     position: fixed;
-    margin-top: 0px;
-    height: 100%;
-    background-color: #747a78;
-    border-radius: 2px;
+    height: 91%;
+    max-width: 700px;
+    padding: 20px;
+    background-color: #d7dedc;
+    color: rgb(33, 30, 30);
     border-right: solid;
     border-width: 2px;
-    // box-shadow: 15px 15px 30px #D2E1DF;  ;
-    color: black;
+    overflow-x: scroll; 
+}
+
+.appListAddForm {
+    display: flex;
+    justify-content: flex-end;
 }

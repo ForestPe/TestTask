@@ -1,24 +1,24 @@
+import { Button } from 'antd';
+
 import './appFilter.scss';
 
 const AppFilter = (props) => {
 
     const buttonsData = [
         {name: 'all', label: 'Все делишки'},
-        {name: 'important', label: 'Важные'},
-        {name: 'state', label: 'Завершенные'}
+        {name: 'star', label: 'Важные'},
+        {name: 'check', label: 'Завершенные'}
     ];
 
     const buttons = buttonsData.map(({name, label}) => {
         const active = props.filter === name;
-        const clazz = active ? 'btn-light' : 'btn-outline-light';
+        const clazz = active ? 'primary' : 'default';
         
         return (
-            <button type="button"
-                    className={`btn ${clazz}`}  
-                    key={name}
-                    onClick={() => props.onFilterSelect(name)}>
-                    {label}
-            </button>
+            <Button type={`${clazz}`} 
+                className='btn' 
+                key={name} 
+                onClick={() => props.onFilterSelect(name)}>{label}</Button>
         )
     })
 
